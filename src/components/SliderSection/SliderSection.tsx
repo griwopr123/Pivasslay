@@ -1,23 +1,97 @@
 import React from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import {
+  motion,
+  AnimatePresence,
+  useMotionValue,
+  useTransform,
+  scale,
+} from "framer-motion";
 import "./SliderSection.scss";
+
+type Participant = {
+  id: number;
+  avatar: string;
+};
 
 type Slide = {
   id: number;
   title: string;
-  participants: number;
+  background: string;
+  logoPrev: string;
+  logoNext: string;
+  participants: Participant[];
 };
 
+const COLUMNS = 3;
+
+const cardVariants = {
+  hidden: (i: number) => ({
+    opacity: 0,
+    y: 30,
+  }),
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.4,
+      delay: (i % COLUMNS) * 0.15,
+      ease: "easeOut",
+    },
+  }),
+};
+
+
 const slides: Slide[] = [
-  { id: 0, title: "Dras King", participants: 12 },
-  { id: 1, title: "Iron Lord", participants: 7 },
-  { id: 2, title: "Dark Order", participants: 15 },
-  { id: 3, title: "Fallen Crown", participants: 9 },
+  {
+    id: 0,
+    title: "Pivas King",
+    background: "/bg/slide-1.png",
+    logoPrev: "/icons/slide-1-logo.png",
+    logoNext: "/icons/slide-2-logo.png",
+    participants: Array.from({ length: 6 }, (_, i) => ({
+      id: i,
+      avatar: `/avatars/1/${i + 1}.png`,
+    })),
+  },
+  {
+    id: 1,
+    title: "Rage of the Year",
+    background: "/bg/slide-2.png",
+    logoPrev: "/icons/slide-2-logo.png",
+    logoNext: "/icons/slide-3-logo.png",
+    participants: Array.from({ length: 6 }, (_, i) => ({
+      id: i,
+      avatar: `/avatars/2/${i + 1}.png`,
+    })),
+  },
+  {
+    id: 2,
+    title: "Dark Order",
+    background: "/bg/slide-3.png",
+    logoPrev: "/icons/slide-3-logo.png",
+    logoNext: "/icons/slide-1-logo.png",
+    participants: Array.from({ length: 6 }, (_, i) => ({
+      id: i,
+      avatar: `/avatars/3/${i + 1}.png`,
+    })),
+  },
 ];
 
 export const SliderSection: React.FC = () => {
   const [active, setActive] = React.useState(0);
   const [direction, setDirection] = React.useState<1 | -1>(1);
+
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  const bgX = useTransform(mouseX, [-100, 100], [-5, 5]);
+  const bgY = useTransform(mouseY, [-100, 100], [-5, 5]);
+
+  const onMouseMove = (e: React.MouseEvent) => {
+    const { innerWidth, innerHeight } = window;
+    mouseX.set(e.clientX - innerWidth / 2);
+    mouseY.set(e.clientY - innerHeight / 2);
+  };
 
   const paginate = (dir: 1 | -1) => {
     setDirection(dir);
@@ -27,51 +101,98 @@ export const SliderSection: React.FC = () => {
   const current = slides[active];
 
   return (
-    <section className="slider">
-      <div className="slider__overlay" />
+    // onMouseMove={onMouseMove}
+    <section className="slidersection">
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={current.id}
+          className="slidersection__bg"
+          style={{
+            backgroundImage: `url(${current.background})`,
+            x: bgX,
+            y: bgY,
+          }}
+          initial={{ opacity: 0, scale: 1.05 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.98 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
+        />
+      </AnimatePresence>
+
+      <div className="slidersection__overlay" />
 
       <AnimatePresence mode="wait">
         <motion.h1
           key={current.id}
-          className="slider__title"
-          initial={{ opacity: 0, y: direction * 20 }}
+          className="slidersection__title"
+          initial={{ opacity: 0, y: direction * 30 }}
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -direction * 20 }}
-          transition={{ duration: 0.35 }}
+          exit={{ opacity: 0, y: -direction * 30 }}
+          transition={{ duration: 0.4 }}
         >
           {current.title}
         </motion.h1>
       </AnimatePresence>
 
-      <div className="slider__nav-left">
-        <button className="arrow" onClick={() => paginate(-1)}>↑</button>
-
+      <div className="slidersection__nav-left">
+        <button className="sarrow" onClick={() => paginate(-1)}>↑</button>
         <div className="icons">
-          <div className="icon next" />
-          <div className="icon prev" />
+          <div className="icon next" onClick={() => paginate(-1)}>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={current.id + "-next"}
+                className="slidersection__logo"
+                initial={{ opacity: 0, y: direction * 5 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -direction * 5 }}
+                transition={{ duration: 0.3 }}
+              >
+                <img src={current.logoNext} alt={current.title} />
+              </motion.div>
+            </AnimatePresence>
+          </div>
+          <hr />
+          <div className="icon prev" onClick={() => paginate(1)}>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={current.id + "-prev"}
+                className="slidersection__logo"
+                initial={{ opacity: 0, y: -direction * 5 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: direction * 5 }}
+                transition={{ duration: 0.3 }}
+              >
+                <img src={current.logoPrev} alt={current.title} />
+              </motion.div>
+            </AnimatePresence>
+          </div>
         </div>
-
-        <button className="arrow" onClick={() => paginate(1)}>↓</button>
+        <button className="sarrow" onClick={() => paginate(1)}>↓</button>
       </div>
 
       <AnimatePresence mode="wait">
         <motion.div
           key={current.id}
-          className="slider__participants"
-          initial={{ opacity: 0, x: direction * 40 }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: -direction * 40 }}
-          transition={{ duration: 0.35 }}
+          className="slidersection__participants"
+          initial="hidden"
+          animate="visible"
+          exit="hidden"
         >
           <div className="grid">
-            {Array.from({ length: current.participants }).map((_, i) => (
-              <div key={i} className="card" />
+            {current.participants.map((p, index) => (
+              <motion.div
+                key={p.id}
+                className="card"
+                style={{ backgroundImage: `url(${p.avatar})`}}
+                custom={index}
+                variants={cardVariants}
+              />
             ))}
           </div>
         </motion.div>
       </AnimatePresence>
 
-      <div className="slider__dots">
+      <div className="slidersection__dots">
         {slides.map((_, i) => (
           <span
             key={i}

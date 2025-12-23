@@ -11,24 +11,6 @@ function App() {
       <Header />
       <Slider />
       <SliderSection />
-      <br />
-      <br />
-            <br />
-      <br />
-
-            <br />
-      <br />
-            <br />
-      <br />
-            <br />
-      <br />
-            <br />
-      <br />
-            <br />
-      <br />
-
-            <br />
-      <br />
     </>
   )
 }

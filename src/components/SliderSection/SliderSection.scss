@@ -1,30 +1,32 @@
 
-.card {
-  transition: transform 0.2s ease, filter 0.2s ease;
 
-  &:hover {
-    transform: scale(1.05);
-    filter: drop-shadow(0 0 12px rgba(255, 0, 0, 0.6));
-  }
-}
-.slider {
+.slidersection {
+  margin-top: 200px;
   position: relative;
   height: 100vh;
-  background: url("/bg.jpg") center / cover no-repeat;
+  width: 100vw;
   color: #fff;
   overflow: hidden;
-  font-family: "YourFont", serif;
-
+//   font-family: "YourFont", serif;
+  &__bg {
+    position: absolute;
+    inset: 0;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    z-index: 0;
+    inset: -100px;
+    transition: inset 0.3s ease;
+  }
   &__overlay {
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.45);
     z-index: 1;
   }
 
   &__title {
     position: absolute;
-    top: 40px;
+    top: 70px;
     left: 120px;
     font-size: 64px;
     color: darkred;
@@ -32,24 +34,22 @@
     font-weight: 400;
   }
 
-  /* ЛЕВАЯ НАВИГАЦИЯ */
   &__nav-left {
     position: absolute;
     left: 30px;
-    top: 50%;
+    top: 55%;
     transform: translateY(-50%);
     z-index: 2;
-
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 18px;
+    gap: 8px;
 
-    .arrow {
+    .sarrow {
       background: none;
       border: none;
       color: white;
-      font-size: 18px;
+      font-size: 35px;
       cursor: pointer;
       opacity: 0.8;
 
@@ -61,36 +61,43 @@
     .icons {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 8px;
 
       .icon {
-        width: 32px;
-        height: 32px;
-        background: black;
-        opacity: 0.7;
+        width: 40px;
+        height: 40px;
+        background: linear-gradient(-90deg, #0D0C0C 15%, #232121 100%)6;
+        cursor: pointer;
+
+        div {
+          img {
+            width: 40px;
+            height: 40px;
+          }
+        }
       }
     }
   }
 
-  /* УЧАСТНИКИ */
+
   &__participants {
+    padding: 20px 20px;
     position: absolute;
     right: 100px;
     top: 50%;
     transform: translateY(-50%);
-    width: 360px;
-    max-height: 360px;
+    width: 700px;
+    max-height: 540px;
     z-index: 2;
 
     overflow-y: auto;
 
-    /* ЧЕРНЫЙ СКРОЛЛ */
     &::-webkit-scrollbar {
       width: 6px;
     }
 
     &::-webkit-scrollbar-thumb {
-      background: black;
+      background: #0D0C0C;
       border-radius: 4px;
     }
 
@@ -101,22 +108,34 @@
     }
 
     .card {
-      width: 100px;
-      height: 100px;
-      background: black;
+      height: 250px;
+      // background: #0D0C0C;
       display: flex;
       align-items: center;
+      cursor: pointer;
       justify-content: center;
-
+      border-radius: 4px;
+      background-size: cover;
+      background-position: center;
+      transition: transform 0.2s ease, filter 0.2s ease;
+      &::after {
+        background-color: black
+      };
       img {
         width: 100%;
         height: 100%;
-        object-fit: cover;
+        &:hover {
+          transform: scale(1.08);
+          filter: drop-shadow(0 0 10px var(--text-primary));
+        }
+      }
+      &:hover {
+        transform: scale(1.08);
+        filter: drop-shadow(0 0 10px var(--text-primary));
       }
     }
   }
 
-  /* ПРАВАЯ НАВИГАЦИЯ */
   &__dots {
     position: absolute;
     right: 30px;
@@ -144,7 +163,6 @@
 }
 
 
-/* АДАПТИВНОСТЬ */
 @media (max-width: 1200px) {
   .main {
     &__participants {

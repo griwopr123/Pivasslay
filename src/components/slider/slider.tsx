@@ -52,64 +52,44 @@ export const Slider: React.FC = () => {
     },
     {
       img: maksa,
-      title: 'Максим'
+      title: 'Максимка'
     },
     {
-      img: kola,
-      title: 'Slide 3'
+      img: logo,
+      title: 'Вояка'
     },
     {
-      img: maksa,
-      title: 'Slide 4'
+      img: logo,
+      title: 'Гриша'
     },
     {
-      img: kola,
-      title: 'Slide 5'
+      img: logo,
+      title: 'Степа'
     },
     {
-      img: maksa,
-      title: 'Slide 6'
+      img: logo,
+      title: 'Алекс'
     },
     {
-      img: kola,
-      title: 'Slide 7'
+      img: logo,
+      title: 'Клюкин'
     },
     {
-      img: maksa,
-      title: 'Slide 8'
+      img: logo,
+      title: 'Парадоха'
     },
         {
       img: logo,
-      title: 'Slide 1',
+      title: 'Кауфмо',
     },
     {
       img: logo,
-      title: 'Slide 2'
+      title: 'Веникус(Гей)'
     },
     {
       img: logo,
-      title: 'Slide 3'
-    },
-    {
-      img: logo,
-      title: 'Slide 4'
-    },
-    {
-      img: logo,
-      title: 'Slide 5'
-    },
-    {
-      img: logo,
-      title: 'Slide 6'
-    },
-    {
-      img: logo,
-      title: 'Slide 7'
-    },
-    {
-      img: logo,
-      title: 'Slide 8'
-    },
+      title: 'Курка'
+    }
   ];
   return (
     <div className='slider'>
