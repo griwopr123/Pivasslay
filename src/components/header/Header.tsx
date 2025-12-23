@@ -1,20 +1,21 @@
 import './Header.scss'
 import logo from '../../assets/icon.png'
+import { useEffect, useState } from 'react'
+
 
 export function Header() {
+
   return (
     <header className="header">
       <div className="header__container">
-        <nav className="header__nav">
-          <a href="#" className="header__nav-link">Home</a>
-          <a href="#" className="header__nav-link">Home</a>
-          <a href="#" className="header__nav-link">Home</a>
-          <a href="#" className="header__nav-link">Home</a>
+        <nav className="header__nav animate__animated animate__fadeInDown" >
+          <a href="#" className="header__nav-link">Главная</a>
+          <a href="#" className="header__nav-link">Участники</a>
+          <a href="#" className="header__nav-link">Голосование</a>
         </nav>
       </div>
 
       <div className="header__content">
-        
         <div className="circle"></div>
         <div className="circle"></div>
         <div className="circle"></div>

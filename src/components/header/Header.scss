@@ -1,11 +1,10 @@
 .header {
   z-index: 2;
-  background: linear-gradient(-90deg, #0D0C0C 15%, #232121 100%);
   width: 100vw;
   height: 100vh;
-  padding: 4rem 0;
   position: relative;
   overflow: hidden;
+  padding: 4rem 0;
 
   &__container {
     max-width: 1200px;

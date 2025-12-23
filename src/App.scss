@@ -5,6 +5,9 @@
 :root {
     --text-primary: #{$text-primary};
     --text-secondary: #{$text-secondary};
+    overflow-x: hidden;
+    background: linear-gradient(-90deg, #0D0C0C 15%, #232121 100%);
+    user-select: none;
 }
 
 [data-theme="dark"] {

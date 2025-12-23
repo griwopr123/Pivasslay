@@ -1,0 +1,154 @@
+
+.card {
+  transition: transform 0.2s ease, filter 0.2s ease;
+
+  &:hover {
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 12px rgba(255, 0, 0, 0.6));
+  }
+}
+.slider {
+  position: relative;
+  height: 100vh;
+  background: url("/bg.jpg") center / cover no-repeat;
+  color: #fff;
+  overflow: hidden;
+  font-family: "YourFont", serif;
+
+  &__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: 1;
+  }
+
+  &__title {
+    position: absolute;
+    top: 40px;
+    left: 120px;
+    font-size: 64px;
+    color: darkred;
+    z-index: 2;
+    font-weight: 400;
+  }
+
+  /* ЛЕВАЯ НАВИГАЦИЯ */
+  &__nav-left {
+    position: absolute;
+    left: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+
+    .arrow {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 18px;
+      cursor: pointer;
+      opacity: 0.8;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+
+    .icons {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+
+      .icon {
+        width: 32px;
+        height: 32px;
+        background: black;
+        opacity: 0.7;
+      }
+    }
+  }
+
+  /* УЧАСТНИКИ */
+  &__participants {
+    position: absolute;
+    right: 100px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 360px;
+    max-height: 360px;
+    z-index: 2;
+
+    overflow-y: auto;
+
+    /* ЧЕРНЫЙ СКРОЛЛ */
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: black;
+      border-radius: 4px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+
+    .card {
+      width: 100px;
+      height: 100px;
+      background: black;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+
+  /* ПРАВАЯ НАВИГАЦИЯ */
+  &__dots {
+    position: absolute;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #777;
+      cursor: pointer;
+      transition: background 0.2s;
+
+      &.active {
+        background: white;
+      }
+    }
+  }
+}
+
+
+/* АДАПТИВНОСТЬ */
+@media (max-width: 1200px) {
+  .main {
+    &__participants {
+      right: 50px;
+    }
+  }
+}
